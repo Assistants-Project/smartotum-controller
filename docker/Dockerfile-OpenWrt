@@ -1,0 +1,12 @@
+FROM arm64v8/alpine:latest
+
+RUN apk add --no-cache libgcc openssl ca-certificates tzdata && \
+    rm -rf /var/cache/apk/*
+
+ENV TZ=Europe/Rome
+
+COPY smartotum-controller /usr/local/bin/smartotum-controller
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh /usr/local/bin/smartotum-controller
+
+ENTRYPOINT ["/entrypoint.sh"]

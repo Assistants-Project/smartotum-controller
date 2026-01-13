@@ -1,0 +1,71 @@
+[package]
+name = "smartotum-controller"
+version = "0.1.0"
+edition = "2021"
+description = """
+A controller for the devices.
+"""
+license = "MIT"
+publish = false
+
+[dependencies]
+tosca.git = "https://github.com/ToscaLab/tosca"
+# tosca.path = "../ToscaLabs/tosca/crates/tosca"
+tosca.version = "0.1"
+tosca.default-features = false
+
+tosca-controller = { git = "https://github.com/ToscaLab/tosca", package = "tosca-controller", default-features = false }
+# tosca-controller.path = "../ToscaLabs/tosca/crates/tosca-controller"
+# tosca.version = "0.1"
+# tosca-controller.default-features = false
+
+serde.version = "1.0"
+serde.default-features = false
+serde.features = ["derive"]
+
+serde_json.version = "1"
+serde_json.default-features = false
+serde_json.features = ["alloc"]
+
+uuid.version = "1.19.0"
+uuid.default-features = false
+uuid.features = ["v4"]
+
+tokio.version = "1.0"
+tokio.default-features = false
+tokio.features = ["rt", "rt-multi-thread", "signal"]
+
+tokio-util.version = "0.7"
+tokio-util.default-features = false
+
+reqwest.version = "0.12.25"
+reqwest.default-features = false
+reqwest.features = ["blocking", "json", "stream", "rustls-tls"]
+
+tracing.version = "0.1"
+tracing.default-features = false
+
+tracing-subscriber.version = "0.3"
+tracing-subscriber.default-features = false
+tracing-subscriber.features = ["ansi", "fmt", "env-filter"]
+
+[profile.release]
+opt-level = 2          # Invece di 3 - differenza minima in performance, molto più veloce
+debug = false
+rpath = false
+lto = "thin"           # Invece di true - molto più veloce, buon compromesso
+debug-assertions = false
+codegen-units = 4      # Invece di 1 - parallelizza la compilazione
+panic = "unwind"
+incremental = true     # IMPORTANTE: abilita compilazione incrementale
+overflow-checks = false
+strip = "symbols"
+
+[profile.dev-release]
+inherits = "release"
+opt-level = 1
+lto = false
+codegen-units = 16
+incremental = true
+
+[workspace]

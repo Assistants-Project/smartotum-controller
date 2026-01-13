@@ -1,0 +1,13 @@
+target/
+Cargo.lock
+*.tar
+logs/
+.git/
+.gitignore
+README.md
+build_image.sh
+docker/
+src/
+Cargo.toml
+.buildx-cache/
+.cargo/
